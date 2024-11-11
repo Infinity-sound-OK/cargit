@@ -215,4 +215,6 @@ def exit_program():
     print("Выход из программы...")
     exit()
 
+print("PROVERKA")
+
 page_main()
