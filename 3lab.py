@@ -2,7 +2,7 @@ import os
 import tabulate  # библиотека для таблиц
 
 # Столбцы данных (включая новый столбец "Тип кузова")
-columns = ['№', 'Производитель', 'Марка', 'Цвет', 'Коробка передач', 'Привод']
+columns = ['№', 'Производитель', 'Марка', 'Цвет', 'Коробка передач', 'Привод', 'Тип кузова']
 
 
 def showdata():  # считывание данных из файла и их преобразование в таблицу
@@ -34,11 +34,13 @@ def add_car_error():  #Добавить машину
 
     vvod_engine = input("Введите привод авто: ")
     if '/' in vvod_engine: return add_car_error()
+    body_type = input('Введите тип кузова: ')
+    if '/' in vvod_engine: return add_car_error()
 
 
 
     num = find_num() + 1
-    car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}'
+    car_string = f'{num}/{vvod_fabric}/{vvod_model}/{vvod_color}/{vvod_transmission}/{vvod_engine}/{body_type}'
 
     #добавление обратно
     data = showdata()
@@ -90,8 +92,9 @@ def change_car_func(car_num):  # Редактировать машину
     print("4. Заменить цвет")
     print("5. Заменить коробку передач")
     print("6. Заменить привод")
+    print('7. Заменить тип кузова')
 
-    action = int(input("Выберите действие (1-6): "))
+    action = int(input("Выберите действие (1-7): "))
 
     if action == 1:
         page_main()
@@ -118,14 +121,16 @@ def find_car():  # поиск машины
     print("2. По цвету")
     print("3. По коробке передач")
     print("4. По приводу")
+    print('5. По типу кузова')
 
-    search_criteria = int(input("Введите номер критерия (1-4): "))
+    search_criteria = int(input("Введите номер критерия (1-5): "))
     search_value = input("Введите значение для поиска: ").strip()
 
     results = [car for car in data if (search_criteria == 1 and search_value == car[0]) or
                (search_criteria == 2 and search_value.lower() == car[3].lower()) or
                (search_criteria == 3 and search_value.lower() == car[4].lower()) or
-               (search_criteria == 4 and search_value.lower() == car[5].lower())]
+               (search_criteria == 4 and search_value.lower() == car[5].lower()) or 
+               (search_criteria == 5 and len(car)>6 and search_value.lower() == car[6].lower())]
 
     if results:
         print("Найденные автомобили:")
